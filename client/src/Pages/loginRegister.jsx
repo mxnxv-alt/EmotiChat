@@ -11,6 +11,7 @@ import { setToken, setName } from '../redux/userSlice';
 
 
 const LoginRegister = () => {
+    
     const [isLogin, setIsLogin] = useState(true);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();

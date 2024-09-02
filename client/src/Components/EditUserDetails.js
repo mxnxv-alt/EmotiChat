@@ -3,14 +3,20 @@ import Avatar from './Avatar'
 import uploadFile from '../helper/UploadFile'
 import axios from 'axios'
 import toast from 'react-hot-toast'
+import Divider from './Divider'
+import { useDispatch } from 'react-redux'
+import {setUser} from '../redux/userSlice'
 
 const EditUserDetails = ({onClose, user}) => {
 const [data, setdata] = useState({
+
     name: user?.user || '',
     profile_pic : user?.profile_pic ||''
 })
 
 const uploadPhotoRef = useRef()
+
+const dispatch = useDispatch()
 
 useEffect(()=>{
     setdata((prev)=>{
@@ -57,15 +63,25 @@ const handleSubmit = async(e)=>{
 
     try {
         const URL = `${process.env.REACT_APP_BACKEND_URL}/api/update-user`;
-        const response = await axios.post(URL, data) 
+        const response = await axios({
+            method : 'post',
+            url : URL,
+            data : data,
+            withCredentials : true
+        }) 
         toast.success(response.data.message)
+
+        if(response.data.success){
+            dispatch(setUser(response.data.data))
+            onClose()
+        }
 
     } catch (error) {
         toast.error(error?.response?.data?.message)
     }
 }
   return (
-    <div className='fixed top-0 bottom-0 left-0 right-0 bg-gray-700 bg-opacity-50 flex justify-center items-center'>
+    <div className='fixed top-0 bottom-0 left-0 right-0 bg-gray-700 bg-opacity-50 flex justify-center items-center z-10'>
      
         <div className='bg-white p-4 py-6 m-1 rounded w-full max-w-sm'>
                 <h2 className='font-semibold'>Profile details</h2>
@@ -80,19 +96,21 @@ const handleSubmit = async(e)=>{
                             id='name'
                             value={data.name}
                             onChange={handleOnChange}
-                            className='w-full, py-1, px-2 focus:ouline-violet-500 border-0.5'
+                            className='w-full, py-1, px-2 focus:outline-primary border-0.5'
                         />
                     </div>
 
                     <div>
                         <div>Photo:</div>
-                            <div className='my-1 grid grid-cols-[40px, 1fr] '>
+                            <div className='my-1 flex items-center gap-4'>
                                 <Avatar
                                 imageUrl={data?.profile_pic}
                                 name={data?.name}
+                                width={40}
+                                height={40}
                                 />
                             <label htmlFor='profile_pic'>
-                                <button className='font-semibold' onClick={handleOpenUploadPhoto}>Change Photo</button>
+                                <button className='font-semibold h-10 ' onClick={handleOpenUploadPhoto}>Change Photo</button>
                                 <input
                                     type='file'
                                     id='profile_pic'
@@ -103,9 +121,12 @@ const handleSubmit = async(e)=>{
                             </label>
                             </div>
                     </div>
-                    <div className='justify-center items-center'>
+
+                    <Divider/>
+
+                    <div className='flex gap-2 w-fit ml-auto '>
                         <button onClick={onClose} className='border-primary border text-primary px-4 py-1 rounded hover:bg-primary hover:text-white'>Cancel</button>
-                        <button onClick={onsubmit} className='border-primary bg-primary text-white px-4 py-1 rounded rounded hover:bg-secondary'>Save</button>
+                        <button onClick={onsubmit} className='border-primary bg-primary text-white border px-4 py-1 rounded hover:bg-secondary'>Save</button>
                     </div>
                 </form>
         </div>

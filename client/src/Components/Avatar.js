@@ -33,7 +33,7 @@ const Avatar = ({ userId, userName, imageUrl, width = 50, height = 50 }) => {
     const randomnum = Math.floor(Math.random() * 11);
 
     return (
-        <div style={{ width: width + "px", height: height + "px" }} className={`overflow-hidden rounded-full`}>
+        <div className={`text-slate-800 rounded-full font-bold relative`} style={{width : width+"px", height : height+"px" }}>
             {
                 imageUrl ? (
                     <img
@@ -41,7 +41,7 @@ const Avatar = ({ userId, userName, imageUrl, width = 50, height = 50 }) => {
                         width={width}
                         height={height}
                         alt={name}
-                        className='overflow-hidden rounded-full'
+                        className='overflow-hidden rounded-full '
                     />
                 ) : (
                     name ? (
@@ -55,6 +55,13 @@ const Avatar = ({ userId, userName, imageUrl, width = 50, height = 50 }) => {
                     )
                 )
             }
+
+            {/* {
+                isOnline && (
+                    <div className='bg-green-600 p-1 absolute bottom-2 -right-1 z-10 rounded-full'></div>
+                )
+            } */}
+
         </div>
     );
 }

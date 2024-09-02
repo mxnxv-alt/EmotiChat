@@ -2,7 +2,7 @@ import React from 'react'
 
 const Divider = () => {
   return (
-    <div className='p-[0.5] bg-slate-200 my-1'>
+    <div className='h-px bg-primary my-1'>
       
     </div>
   )
