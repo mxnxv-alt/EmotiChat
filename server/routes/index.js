@@ -33,6 +33,6 @@ router.post('/update-user', updateUserDetails)
 
 router.post('/login', loginUser);
 
-router.post('/search-user, searchUser')
+router.post('/search-user', searchUser)
 
 module.exports =  router

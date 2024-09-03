@@ -13,7 +13,7 @@ const Sidebar = () => {
     const user = useSelector(state => state?.user)
     const [editUserOpen, setEditUserOpen] = useState(false)
     const [allUser,setAllUser] = useState([])
-    const [openSearchUser,setOpenSearchUser] = useState(true)
+    const [openSearchUser,setOpenSearchUser] = useState(false)
 
   return (
     <div className='w-full h-full flex bg-white'>

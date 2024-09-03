@@ -3,7 +3,7 @@ import React , { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Outlet,  useLocation, useNavigate } from 'react-router-dom'
 import logo from '../Assets/logo.png'
-// import io from 'socket.io-client'
+import io from 'socket.io-client'
 import { logout,  setUser } from '../redux/userSlice'
 import Sidebar from '../Components/Sidebar'
 
@@ -38,12 +38,15 @@ const Home = () => {
   },[])
 
   /***socket connection */
-  // useEffect(()=>{
-  //   const socketConnection = io(process.env.REACT_APP_BACKEND_URL,{
-  //     auth : {
-  //       token : localStorage.getItem('token')
-  //     },
-  //   })
+  const token = localStorage.getItem('token');
+  console.log('Socket token:', token);
+  useEffect(()=>{
+    const socketConnection = io(process.env.REACT_APP_BACKEND_URL, {
+        auth: {
+        token: token,
+         
+      },
+    })
 
   //   socketConnection.on('onlineUser',(data)=>{
   //     console.log(data)
@@ -52,10 +55,10 @@ const Home = () => {
 
   //   dispatch(setSocketConnection(socketConnection))
 
-  //   return ()=>{
-  //     socketConnection.disconnect()
-  //   }
-  // },[])
+    return ()=>{
+      socketConnection.disconnect()
+    }
+  },[])
 
   const basePath = location.pathname === '/'
   return (
