@@ -39,7 +39,6 @@ const Home = () => {
 
   /***socket connection */
   const token = localStorage.getItem('token');
-  console.log('Socket token:', token);
   useEffect(()=>{
     const socketConnection = io(process.env.REACT_APP_BACKEND_URL, {
         auth: {

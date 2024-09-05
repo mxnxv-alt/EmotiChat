@@ -102,7 +102,7 @@ const handleSubmit = async(e)=>{
 
                     <div>
                         <div>Photo:</div>
-                            <div className='my-1 flex items-center gap-4'>
+                            <div className='my-1 flex items-center  gap-4'>
                                 <Avatar
                                 imageUrl={data?.profile_pic}
                                 name={data?.name}
@@ -110,7 +110,7 @@ const handleSubmit = async(e)=>{
                                 height={40}
                                 />
                             <label htmlFor='profile_pic'>
-                                <button className='font-semibold h-10 ' onClick={handleOpenUploadPhoto}>Change Photo</button>
+                                <button className='font-semibold h-10 bg-slate-300 hover:active-bg-slate-200 focus:outline-none p-3 pt-2 ' onClick={handleOpenUploadPhoto}>Change Photo</button>
                                 <input
                                     type='file'
                                     id='profile_pic'

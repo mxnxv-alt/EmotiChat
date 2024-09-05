@@ -17,7 +17,7 @@ io.on('connection',(socket)=>{
     console.log("user connected", socket.id)
 
     const token = socket.handshake.auth.token
-    console.log("token", token)
+    // console.log("token", token)
 
     //disconnect
     io.on('disconnect',()=>{

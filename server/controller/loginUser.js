@@ -1,6 +1,6 @@
 const UserModel = require("../models/UserModel");
 const bcryptjs = require('bcryptjs');
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 
 async function loginUser(request, response) {
     try {
@@ -24,8 +24,7 @@ async function loginUser(request, response) {
             });
         }
 
-
-  // Generate the JWT token
+        // Generate the JWT token
         const tokenData = {
             id: user._id,
             email: user.email
@@ -34,11 +33,13 @@ async function loginUser(request, response) {
 
         // Set the cookie options
         const cookieOptions = {
-            http: true, 
-            secure : true
-
+            httpOnly: true,
+            secure: true,
+            sameSite: 'Strict',
+            maxAge: 24 * 60 * 60 * 1000 // 1 day in milliseconds
         };
-
+         
+        // Send the token in both the response body and as a cookie
         return response
             .cookie('token', token, cookieOptions)
             .status(200)
@@ -48,9 +49,12 @@ async function loginUser(request, response) {
                 data: {
                     id: user._id,
                     name: user.name,
-                    email: user.email
+                    email: user.email,
+                    token: token
                 }
             });
+
+
 
     } catch (error) {
         return response.status(500).json({

@@ -57,20 +57,20 @@ const LoginRegister = () => {
 
             if (response.data.success) {
                 toast.success("Login successful!");
-                dispatch(setToken(response?.data?.token))
+                dispatch(setToken(response?.data?.data?.token))
                 dispatch(setName(response?.data?.data?.name));
-                localStorage.setItem('token', response?.data?.token)
+                localStorage.setItem('token', response?.data?.data?.token)
                 setTimeout(() => { 
                     setLoading(false);
                     navigate('/home'); 
                 }, 1000);
             } else if (response.data.error) {
-                toast.error(response.data.message);
+                toast.error("1",response.data.message);
                 setLoading(false);
             }
 
         } catch (error) {
-            toast.error(error?.response?.data?.message || "An error occurred");
+            toast.error("2",error?.response?.data?.message || "An error occurred");
             setLoading(false); // Stop loading
         }
     };
@@ -98,7 +98,7 @@ const LoginRegister = () => {
             }
 
         } catch (error) {
-            toast.error(error?.response?.data?.message || "An error occurred");
+            toast.error("3",error?.response?.data?.message || "An error occurred");
             setLoading(false); 
         }
     };
