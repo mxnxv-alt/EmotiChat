@@ -3,7 +3,8 @@ import { FaRegCircleUser } from "react-icons/fa6";
 import { useSelector } from 'react-redux';
 
 const Avatar = ({ userId, userName, imageUrl, width = 50, height = 50 }) => {
-    // Use userName prop first, fall back to Redux store name if userName is not provided
+
+    const onlineUser = useSelector(state => state?.user?.onlineUser)
     const nameFromStore = useSelector(state => state.user.name);
     const name = userName || nameFromStore;
 
@@ -33,6 +34,8 @@ const Avatar = ({ userId, userName, imageUrl, width = 50, height = 50 }) => {
 
     const randomnum = Math.floor(Math.random() * bgColor.length);
 
+    const isOnline = onlineUser.includes(userId)
+
     return (
         <div className={`text-slate-800 object-cover font-bold relative`} style={{ width: width + "px", height: height + "px" }}>
             {
@@ -56,6 +59,13 @@ const Avatar = ({ userId, userName, imageUrl, width = 50, height = 50 }) => {
                     )
                 )
             }
+
+            {
+                isOnline && (
+                    <div className='bg-green-600 p-1 absolute bottom-2 -right-0 z-10 rounded-full'> </div>
+                )
+            }
+
         </div>
     );
 }
