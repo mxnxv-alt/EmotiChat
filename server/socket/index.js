@@ -31,7 +31,7 @@ io.on('connection', async (socket) => {
 
     socket.on('message-page', async (userId) => {
         if (mongoose.Types.ObjectId.isValid(userId)) {
-            console.log('Selected userId:', userId);
+            // console.log('Selected userId:', userId);
 
             try {
                 const userDetails = await UserModel.findById(userId).select('-password');
