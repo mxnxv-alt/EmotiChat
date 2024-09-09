@@ -38,18 +38,18 @@ const handleOnChange = (e)=>{
         })
 }
 
-const handleUploadPhoto = async(e) =>{
-    const file = e.target.files[0]
+const handleUploadPhoto = async (e) => {
+    const file = e.target.files[0];
 
-    const uploadPhoto = await uploadFile(file)
-    
-    setdata((prev)=>{
-            return{
-                ...prev,
-                profile_pic : uploadPhoto?.url
-            }
-        })
-}
+    const uploadPhoto = await uploadFile(file);
+    console.log("Uploaded Photo: ", uploadPhoto);  // Ensure the response is valid
+
+    setdata((prev) => ({
+        ...prev,
+        profile_pic: uploadPhoto?.url || prev.profile_pic // Ensure there's a valid URL
+    }));
+};
+
 const handleOpenUploadPhoto = (e)=>{
     e.preventDefault()
     e.stopPropagation()
@@ -57,29 +57,52 @@ const handleOpenUploadPhoto = (e)=>{
 }
 
 
-const handleSubmit = async(e)=>{
-    e.preventDefault()
-    e.stopPropagation()
+const handleSubmit = async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
 
     try {
+        // Remove circular references or unnecessary fields
+        const filteredData = {
+            name: data.name,
+            profile_pic: data.profile_pic
+        };
+
         const URL = `${process.env.REACT_APP_BACKEND_URL}/api/update-user`;
         const response = await axios({
-            method : 'post',
-            url : URL,
-            data : data,
-            withCredentials : true
-        }) 
-        toast.success(response.data.message)
+            method: 'post',
+            url: URL,
+            data: filteredData, // Send only serializable fields
+            withCredentials: true
+        });
 
-        if(response.data.success){
-            dispatch(setUser(response.data.data))
-            onClose()
+        // Log the full response to inspect the structure
+        console.log("Response: ", response);
+
+        // Ensure response.data exists before accessing it
+        if (response && response.data) {
+            toast.success(response.data.message);
+
+            if (response.data.success) {
+                dispatch(setUser(response.data.data));
+                onClose();
+            }
+        } else {
+            toast.error("Unexpected response structure");
         }
 
     } catch (error) {
-        toast.error(error?.response?.data?.message)
+        console.error("Error in Axios request: ", error);
+        // Handle error response from axios (if available)
+        if (error.response && error.response.data) {
+            toast.error(error.response.data.message || "An error occurred");
+            console.log("Error response data: ", error.response.data);
+        } else {
+            toast.error("An unknown error occurred");
+        }
     }
-}
+};
+
   return (
     <div className='fixed top-0 bottom-0 left-0 right-0 bg-gray-700 bg-opacity-50 flex justify-center items-center z-10'>
      
