@@ -200,7 +200,8 @@ const MessagePage = () => {
                                             <div className='w-full'>
                                                 {
                                                     msg?.videoUrl && (
-                                                        <video src={msg.videoUrl} className='w-full h-full object-scale-down'/>
+                                                        <video src={msg.videoUrl} className='w-full h-full object-scale-down'
+                                                        controls/>
                                                     )
                                                 }                                                
                                             </div>
