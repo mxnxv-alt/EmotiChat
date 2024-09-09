@@ -7,7 +7,6 @@ import axios from 'axios'
 import { IoClose } from "react-icons/io5";
 
 
-
 const SearchUser = ({onClose}) => {
     const [searchUser, setSearchUser] = useState([])
     const [loading, setLoading] = useState(false)

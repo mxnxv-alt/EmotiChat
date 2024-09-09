@@ -4,6 +4,7 @@ const http = require('http');
 const mongoose = require('mongoose');
 const getUserDetailsFromToken = require('../helpers/getUserDetailsFromToken');
 const UserModel = require('../models/UserModel');
+const { ConversationModel, MessageModel } = require('../models/ConversationModel')
 
 const app = express();
 const server = http.createServer(app);
@@ -23,7 +24,7 @@ io.on('connection', async (socket) => {
     const user = await getUserDetailsFromToken(token);
     
     if (user && user.id) {
-        socket.join(user?.id);
+        socket.join(user?._id.toString());
         onlineUser.add(user?.id?.toString());
 
         io.emit('onlineUser', Array.from(onlineUser));
@@ -58,6 +59,47 @@ io.on('connection', async (socket) => {
             socket.emit('error', { message: 'Invalid user ID' });
         }
     });
+
+    socket.on('new message', async(data)=>{
+
+        let conversation = await ConversationModel.findOne({
+            "$or" : [
+                { sender : data?.sender , receiver : data?.receiver },
+                { sender : data?.receiver , receiver : data?.sender }
+            ]
+        })
+
+
+        if(!conversation){
+            const createConversation = await ConversationModel({
+                sender : data?.sender,
+                receiver : data?.receiver
+            })
+            conversation = await createConversation.save()
+        }
+
+        const message = new MessageModel({
+            text : data.text,
+            imageUrl : data.imageUrl,
+            videoUrl : data.videoUrl,
+            msgByUserId : data?.msgByUserId,
+        })
+        const saveMessage = await message.save()
+
+        const updateConversation = await ConversationModel.updateOne({ _id : conversation?._id}, {
+            "$push" : { message : saveMessage?._id}
+        })
+
+        const getConversationMessage = await ConversationModel.findOne({
+            "$or" : [
+                { sender : data?.sender , receiver : data?.receiver },
+                { sender : data?.receiver , receiver : data?.sender }
+            ]
+        }).populate('message').sort({ updatedAt : -1 })
+
+        io.to(data?.sender).emit('message', getConversationMessage.message)
+        io.to(data?.receiver).emit('message', getConversationMessage.message)
+    })
 
     socket.on('disconnect', () => {
         if (user && user.id) {
