@@ -58,7 +58,17 @@ io.on('connection', async (socket) => {
             console.error('Invalid userId:', userId);
             socket.emit('error', { message: 'Invalid user ID' });
         }
+
+        const getConversationMessage = await ConversationModel.findOne({
+            "$or" : [
+                { sender : user?._id , receiver : userId },
+                { sender : userId , receiver : user?._id }
+            ]
+        }).populate('message').sort({ updatedAt : -1 })
+       
+        socket.emit('message',getConversationMessage?.message || [])
     });
+
 
     socket.on('new message', async(data)=>{
 
@@ -97,8 +107,40 @@ io.on('connection', async (socket) => {
             ]
         }).populate('message').sort({ updatedAt : -1 })
 
-        io.to(data?.sender).emit('message', getConversationMessage.message)
-        io.to(data?.receiver).emit('message', getConversationMessage.message)
+        io.to(data?.sender).emit('message', getConversationMessage?.message || [])
+        io.to(data?.receiver).emit('message', getConversationMessage?.message || [])
+    })
+
+
+    socket.on('sidebar',async(currentUserId)=>{
+        console.log("current user",currentUserId)
+
+        if(currentUserId){
+            
+        const currentUserConversation = await ConversationModel.find({
+            "$or" : [
+                { sender : currentUserId },
+                { receiver : currentUserId }                
+            ]
+        }).sort({ updatedAt : -1 }).populate('message').populate('sender').populate('receiver')
+
+        console.log("currentUserConversation",currentUserConversation)
+        const conversation = currentUserConversation.map((conv)=>{
+
+            const countUnseenMsg = conv.message.reduce((prev,curr) => prev + (curr.seen ? 0 : 1) ,0)
+
+            return{
+                _id : conv?._id,
+                sender : conv?.sender,
+                receiver : conv?.receiver,
+                unseenMsg : countUnseenMsg,
+                lastMsg : conv.message[conv?.message?.length -1],
+            }
+        })
+
+        socket.emit('conversation', conversation)
+        }
+
     })
 
     socket.on('disconnect', () => {
