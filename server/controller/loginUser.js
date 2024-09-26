@@ -31,7 +31,6 @@ async function loginUser(request, response) {
         };
         const token = await jwt.sign(tokenData, process.env.JWT_SECRET_KEY, { expiresIn: '1d' });
 
-        // Set the cookie options
         const cookieOptions = {
             httpOnly: true,
             secure: true,

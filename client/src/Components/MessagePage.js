@@ -36,6 +36,8 @@ const MessagePage = () => {
     const [allMessage, setAllMessage] = useState([])
 
     const currentMessage = useRef(null)
+
+
     useEffect(()=>{
         if(currentMessage.current){
             currentMessage.current.scrollIntoView({behavior : 'smooth', block : 'end'})
@@ -106,7 +108,7 @@ const MessagePage = () => {
             });
             socketConnection.on('message', (data) => {
                 console.log('message data:', data);
-                setAllMessage(data)
+                setAllMessage(data || [])
             });
             socketConnection.on('error', (error) => {
                 console.error('Socket error:', error.message);
@@ -189,19 +191,24 @@ const MessagePage = () => {
                             {
                                 allMessage.map((msg,index)=>{
                                     return(
-                                        <div className={`bg-white p-1 py-2 rounded w-fit max-w-[280px] md:max-w-sm lg:max-w-md ${user._id === msg.msgByUserId ? "ml-auto bg-teal-100" : ""}`}>
+                                        <div key={msg._id} className={`bg-white p-1 py-2 rounded w-fit max-w-[280px] md:max-w-sm lg:max-w-md ${user._id === msg.msgByUserId ? "ml-auto !bg-teal-100" : ""}`}>
                                             <div className='w-full'>
                                                 {
                                                     msg?.imageUrl && (
-                                                        <img src={msg.imageUrl} className='w-full h-full object-scale-down'/>
+                                                        <img 
+                                                            src={msg.imageUrl} 
+                                                            className='w-full h-full object-scale-down'
+                                                        />
                                                     )
                                                 }                                                
-                                            </div>
-                                            <div className='w-full'>
+                                    
                                                 {
                                                     msg?.videoUrl && (
-                                                        <video src={msg.videoUrl} className='w-full h-full object-scale-down'
-                                                        controls/>
+                                                        <video 
+                                                            src={msg.videoUrl} 
+                                                            className='w-full h-full object-scale-down'
+                                                            controls
+                                                        />
                                                     )
                                                 }                                                
                                             </div>
