@@ -191,7 +191,11 @@ const MessagePage = () => {
                             {
                                 allMessage.map((msg,index)=>{
                                     return(
+<<<<<<< HEAD
                                         <div key={msg._id} className={`bg-white p-1 py-2 rounded w-fit max-w-[280px] md:max-w-sm lg:max-w-md ${user._id === msg.msgByUserId ? "ml-auto !bg-teal-100" : ""}`}>
+=======
+                                        <div className={`bg-white p-1 py-2 rounded w-fit max-w-[280px] md:max-w-sm lg:max-w-md ${user._id === msg.msgByUserId ? "ml-auto !bg-teal-200" : ""}`}>
+>>>>>>> 7debe2e75defaf1579ad8fec3b32184d703ad54f
                                             <div className='w-full'>
                                                 {
                                                     msg?.imageUrl && (
@@ -308,18 +312,22 @@ const MessagePage = () => {
                         }                        
                     </div>
 
-                    <form className='h-full w-full flex gap-2 justify-center' onSubmit={handleSendMessage}>
+                    <form className="h-full w-full flex gap-2 items-center" onSubmit={handleSendMessage}>
                         <input 
-                            type='text'
-                            placeholder='Enter Your Message...'
-                            className='py-1 px-4 outline-none h-full w-full'
+                            type="text"
+                            placeholder="Enter Your Message..."
+                            className="py-2 px-4 outline-none flex-grow h-full "
                             value={message.text}
                             onChange={handleOnChange}
                         />
-                        <button className='text-primary hover:text-secondary rounded-full flex items-center justify-center'>
-                            <IoSend size={28}/>
+                        <button 
+                            className="bg-primary text-white hover:bg-secondary w-12 h-12 rounded-full flex items-center justify-center transition duration-300 ease-in-out"
+                            type="submit"
+                        >
+                            <IoSend size={20} />
                         </button>
                     </form>
+
                 </section>         
                 
         </div>
