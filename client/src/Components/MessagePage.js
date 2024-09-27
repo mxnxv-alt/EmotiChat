@@ -130,6 +130,8 @@ const MessagePage = () => {
                 // Optionally display error to the user
             };
 
+
+            socketConnection.emit('seen', params.userId)
             socketConnection.on('message-user', handleMessageUser);
             socketConnection.on('message', handleMessage);
             socketConnection.on('error', handleError);
@@ -216,7 +218,7 @@ const MessagePage = () => {
                     {allMessage.map((msg) => (
                         <div
                             key={msg._id}
-                            className={`bg-white p-1 py-2 rounded w-fit max-w-[280px] md:max-w-sm lg:max-w-md ${user._id === msg.msgByUserId ? "ml-auto !bg-teal-200" : ""}`}
+                            className={` p-1 py-2 rounded w-fit max-w-[280px] md:max-w-sm lg:max-w-md ${user._id === msg.msgByUserId ? "ml-auto bg-teal-200" : "bg-white"}`}
                         >
                             <div className='w-full'>
                                 {msg?.imageUrl && (

@@ -9,7 +9,7 @@ import EditUserDetails from './EditUserDetails';
 import { GoArrowUpLeft } from "react-icons/go";
 import { FaVideo, FaImage } from "react-icons/fa6";
 import SearchUser from './SearchUser';
-import { setOnlineUser } from '../redux/userSlice'; // Assuming you have this action
+import { setOnlineUser, logout } from '../redux/userSlice'; // Assuming you have this action
 
 const Sidebar = () => {
     const user = useSelector(state => state?.user);
@@ -82,6 +82,17 @@ const Sidebar = () => {
         }
     };
 
+    const handleLogout = () => {
+        // Dispatch the logout action to update Redux store
+        dispatch(logout());
+    
+        // Clear all data from local storage
+        localStorage.clear();
+    
+        // Navigate the user to the login page
+        navigate("/login");
+    };
+    
     return (
         <div className='w-full h-full flex bg-white'>
             {/* Sidebar Navigation */}
@@ -121,14 +132,7 @@ const Sidebar = () => {
                         />
                     </button>
                     <button
-                        onClick={() => {
-                            // Implement logout functionality here
-                            // For example, emit a logout event or clear tokens
-                            // Example:
-                            // socketConnection.emit('logout', user._id);
-                            // dispatch(logout());
-                            // navigate("/login");
-                        }}
+                        onClick= {handleLogout}
                         className='w-12 h-12 flex justify-center items-center cursor-pointer hover:bg-violet-300 rounded'
                         title='LogOut'
                     >
@@ -166,7 +170,7 @@ const Sidebar = () => {
                         return (
                             <div
                                 key={conv?._id}
-                                className='flex items-center gap-2 cursor-pointer hover:bg-gray-100 p-2 rounded'
+                                className='flex items-center gap-2 cursor-pointer hover:bg-gray-100 px-2 py-3 rounded'
                                 onClick={() => handleUserClick(userId)}
                             >
                                 <div>
@@ -178,26 +182,36 @@ const Sidebar = () => {
                                     />
                                 </div>
                                 <div>
-                                    <h3 className='text-ellipsis line-clamp-1'>{userName}</h3>
+                                    <h3 className='text-ellipsis line-clamp-1 font-semibold text-base'>{userName}</h3>
                                     <div className='text-slate-500 text-xs flex items-center gap-1'>
                                         <div className='flex items-center gap-1'>
-                                            {lastMessage?.imageUrl && (
+                                            {
+                                                conv?.lastMsg?.imageUrl && (
                                                 <div className='flex items-center gap-1'>
                                                     <span><FaImage /></span>
-                                                    <span>Image</span>
+                                                   {!lastMessage?.text && <span>Image</span>} 
                                                 </div>
                                             )}
 
-                                            {lastMessage?.videoUrl && (
+                                            {
+                                                conv?.lastMsg?.videoUrl && (
                                                 <div className='flex items-center gap-1'>
                                                     <span><FaVideo /></span>
-                                                    <span>Video</span>
+                                                    {!lastMessage?.text && <span>Video</span>}
                                                 </div>
                                             )}
                                         </div>
-                                        <p>{lastMessage?.text}</p>
+                                        <p className='text-ellipsis line-clamp-1'>{lastMessage?.text}</p>
                                     </div>
+
                                 </div>
+                                {
+                                    Boolean(conv?.unseenMsg) && (
+                                        <p className='text-xs w-6 h-6 flex justify-center items-center ml-auto bg-violet-500 p-1 text-white font-semibold rounded-full'>{conv?.unseenMsg}</p>
+
+                                    )
+                                }
+
                             </div>
                         );
                     })}
