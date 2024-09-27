@@ -62,7 +62,7 @@ const LoginRegister = () => {
                 localStorage.setItem('token', response?.data?.data?.token)
                 setTimeout(() => { 
                     setLoading(false);
-                    navigate('/home'); 
+                    navigate('/'); 
                 }, 1000);
             } else if (response.data.error) {
                 toast.error("1",response.data.message);

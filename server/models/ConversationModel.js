@@ -28,17 +28,17 @@ const messageSchema = new mongoose.Schema({
 
 const conversationSchema = new mongoose.Schema({
     sender: {
-        type: mongoose.Schema.Types.ObjectId,  // Use mongoose.Schema.Types.ObjectId
+        type: mongoose.Schema.Types.ObjectId, 
         required: true,
         ref: 'User'
     },
     receiver: {
-        type: mongoose.Schema.Types.ObjectId,  // Use mongoose.Schema.Types.ObjectId
+        type: mongoose.Schema.Types.ObjectId, 
         required: true,
         ref: 'User'
     },
     message: [{
-        type: mongoose.Schema.Types.ObjectId,  // Assuming you want to store references to Message documents
+        type: mongoose.Schema.Types.ObjectId,  
         ref: 'Message'
     }]
 }, {
