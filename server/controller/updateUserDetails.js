@@ -17,7 +17,7 @@ async function updateUserDetails(request, response) {
         const userInformation = await UserModel.findById(user._id)
 
         return response.json({
-            message : "user updated successfully",
+            message : "User updated successfully",
             data : userInformation,
             success: true
         })

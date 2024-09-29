@@ -73,7 +73,7 @@ const SpeechButton = ({ onTranscribe, textToSpeak }) => {
             {/* Speech-to-Text Button */}
             <button
                 onClick={handleMicClick}
-                className={`flex justify-center items-center w-11 h-11 rounded-full hover:bg-primary hover:text-white ${
+                className={`flex justify-center items-center w-11 h-11 rounded-full hover:bg-violet-500 hover:text-white transition-colors duration-200 ease-in-out ${
                     isListening ? 'bg-red-500 text-white' : ''
                 }`}
                 title={isListening ? 'Stop Listening' : 'Start Speaking'}
@@ -85,7 +85,7 @@ const SpeechButton = ({ onTranscribe, textToSpeak }) => {
             {textToSpeak && (
                 <button
                     onClick={speakText}
-                    className="flex justify-center items-center w-11 h-11 rounded-full hover:bg-primary hover:text-white"
+                    className="flex justify-center items-center w-11 h-11 rounded-full hover:bg-violet-500 hover:text-white transition-colors duration-200 ease-in-out"
                     title="Read Message"
                 >
                     <FaVolumeUp size={20} />

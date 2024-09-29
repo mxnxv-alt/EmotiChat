@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { BsSearch } from "react-icons/bs";
+import { IoSearch } from "react-icons/io5";
 import Loading from './Loading';
 import UserSearchCard from './UserSearchCard';
 import toast from 'react-hot-toast'
@@ -39,18 +39,18 @@ const SearchUser = ({onClose}) => {
             <input 
                 type='text'
                 placeholder='Search User by by name, email...'
-                className='w-full outline-none py-1 h-full px-4'
+                className='w-full text-white bg-neutral-900 outline-none py-1 h-full px-4'
                 onChange={(e)=>setSearch(e.target.value)}
                 value={search}
             />
-            <div className='h-14 w-14 flex justify-center items-center'>
-                <BsSearch
-                    size={20} 
+            <div className='h-14 w-14 flex bg-neutral-900 text-white justify-center items-center'>
+                <IoSearch
+                    size={25} 
                 />
             </div>
         </div>
 
-        <div className='bg-white mt-2 w-full p-4 rounded max-h-screen overflow-x-hidden overflow-y-auto scrollbar'>
+        <div className='bg-neutral-900 text-white mt-2 w-full p-4 rounded max-h-screen overflow-x-hidden overflow-y-auto scrollbar'>
             {
                 searchUser.length === 0 && !loading&& (
                     <p className='text-center '>No user found!</p>
@@ -75,7 +75,7 @@ const SearchUser = ({onClose}) => {
         </div>
       </div>
 
-        <div className='absolute top-0 right-0 tex-2xl p-2 lg:text-3xl hover:text-slate-300' onClick={onClose}>
+        <div className='absolute text-white top-0 right-0 tex-2xl p-2 lg:text-4xl hover:text-teal-200' onClick={onClose}>
             <button>
             <IoClose/>
             </button>
