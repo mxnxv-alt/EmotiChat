@@ -72,15 +72,14 @@ const Home = () => {
       const basePath = location.pathname === '/'
   return (
     <div className='grid lg:grid-cols-[300px,1fr] h-screen max-h-screen'>
-      <section className={`bg-white ${isSidebarOpen ? "block" : "hidden"} lg:block`}>
+      <section className={`bg-neutral-600 ${isSidebarOpen ? "block" : "hidden"} lg:block`}>
         <Sidebar />
       </section>
 
       <button 
         className="lg:hidden absolute top-1 left-1" 
         onClick={toggleSidebar}>
-       <RxHamburgerMenu 
-       />
+       <RxHamburgerMenu className='text-lg text-bold'/>
         
       </button>
 
@@ -88,11 +87,11 @@ const Home = () => {
         <Outlet />
       </section>
 
-      <div className={`justify-center items-center flex-col gap-2 hidden ${!basePath ? "hidden" : "lg:flex" }`}>
+      <div className={`justify-center login-page-background bg-neutral-600 items-center flex-col gap-2 hidden ${!basePath ? "hidden" : "lg:flex" }`}>
         <div>
           <img src={logo} width={250} alt='logo' className="opacity-88" />
         </div>
-        <p className='text-lg mt-2 text-slate-500'>Select user to send message</p>
+        <p className='text-lg mt-2 text-white'>Select user to send message</p>
       </div>
     </div>
   );

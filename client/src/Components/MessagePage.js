@@ -13,6 +13,7 @@ import Loading from './Loading';
 import backgroundImage from '../Assets/background.jpg';
 import moment from 'moment';
 import SpeechButton from './SpeechButton'; // Import SpeechButton
+import { BsEmojiLaughing } from "react-icons/bs";//<BsEmojiLaughing />
 
 const MessagePage = () => {
     const params = useParams();
@@ -226,7 +227,7 @@ const MessagePage = () => {
                     {allMessage.map((msg) => (
                         <div
                             key={msg._id}
-                            className={` p-1 py-2 rounded w-fit max-w-[280px] md:max-w-sm lg:max-w-md ${user._id === msg.msgByUserId ? "ml-auto bg-teal-200" : "text-white !shadow-2xl bg-neutral-700"}`}
+                            className={` p-1 py-2 rounded w-fit max-w-[280px] md:max-w-sm lg:max-w-md ${user._id === msg.msgByUserId ? "ml-auto bg-teal-200" : "text-white shadow-2xl bg-neutral-800"}`}
                         >
                             <div className='w-full'>
                                 {msg?.imageUrl && (

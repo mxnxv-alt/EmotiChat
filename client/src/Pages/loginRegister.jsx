@@ -115,7 +115,7 @@ const LoginRegister = () => {
         <div className="login-page-background">
             <img src={logo} alt="Logo" className="form-logo" />
             {loading ? (
-                <div className="loading-spinner">Loading...</div> 
+                <div className="loading-spinner shadow-2xl text-bold">Loading...</div> 
             ) : (
                 <div className={`wrapper ${isLogin ? '' : 'active'}`}>
                     <div className="form-box login">
@@ -143,10 +143,10 @@ const LoginRegister = () => {
                                 />
                                 <FaLock className='icon' />
                             </div>
-                            <div className="remember-forgot">
+                            {/* <div className="remember-forgot">
                                 <label> <input type="checkbox" /> Remember me</label>
                                 <a href="#">Forgot password?</a>
-                            </div>
+                            </div> */}
                             <button type="submit" className="btn">
                                 <strong>Login</strong>
                                 <div id="container-stars">
