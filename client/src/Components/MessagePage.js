@@ -1,18 +1,21 @@
+// src/components/MessagePage.jsx
+
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useParams, useNavigate } from 'react-router-dom'; // Added useNavigate
 import Avatar from './Avatar';
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { IoIosArrowBack } from "react-icons/io";
-import { FaPlus, FaVideo, FaImage } from "react-icons/fa6";
+import { FaPlus, FaVideo, FaImage } from "react-icons/fa6"; // Imported FaSmile
 import uploadFile from '../helper/UploadFile';
 import { IoClose } from "react-icons/io5";
+import { FaRegSmile } from "react-icons/fa";
 import { IoSend } from 'react-icons/io5';
 import Loading from './Loading';
 import backgroundImage from '../Assets/background.jpg';
 import moment from 'moment';
 import SpeechButton from './SpeechButton'; // Import SpeechButton
-import { BsEmojiLaughing } from "react-icons/bs";//<BsEmojiLaughing />
+import { emojiToText, textToEmoji } from '../helper/EmojiTranslator'; // Import translation functions
 
 const MessagePage = () => {
     const params = useParams();
@@ -190,6 +193,32 @@ const MessagePage = () => {
         }));
     };
 
+    /**
+     * Handles the Emoji Translation Button Click
+     * Toggles between translating text to emojis and emojis to text
+     */
+    const handleEmojiTranslate = () => {
+        const { text } = message;
+        if (!text) return;
+
+        // Check if the text contains any emojis
+        const containsEmoji = /([\u2700-\u27BF]|[\uE000-\uF8FF]|[\uD83C-\uDBFF\uDC00-\uDFFF]+)/g.test(text);
+
+        let translatedText = '';
+        if (containsEmoji) {
+            // Translate emojis to text
+            translatedText = emojiToText(text);
+        } else {
+            // Translate text to emojis
+            translatedText = textToEmoji(text);
+        }
+
+        setMessage(prev => ({
+            ...prev,
+            text: translatedText
+        }));
+    };
+
     return (
         <div style={{ backgroundImage: `url(${backgroundImage})` }} className='bg-no-repeat bg-cover h-screen'>
             <header className='sticky top-0 h-16 bg-neutral-800 text-white flex justify-between items-center px-5'>
@@ -342,6 +371,15 @@ const MessagePage = () => {
                         onTranscribe={handleTranscribe}
                         textToSpeak={message.text}
                     />
+
+                    {/* Emoji Translation Button */}
+                    <button
+                        onClick={handleEmojiTranslate}
+                        className='flex justify-center items-center w-11 h-11 rounded-full hover:bg-violet-500 hover:text-white transition-colors duration-200 ease-in-out'
+                        title="Translate Emoji/Text"
+                    >
+                        <FaRegSmile size={20} />
+                    </button>
 
                     {/* Chat Text Input and Send Button */}
                     <form className="flex-grow flex gap-2 items-center" onSubmit={handleSendMessage}>
