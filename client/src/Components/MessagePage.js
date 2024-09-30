@@ -1,4 +1,3 @@
-// src/components/MessagePage.js
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useParams, useNavigate } from 'react-router-dom'; // Added useNavigate

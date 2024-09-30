@@ -1,4 +1,3 @@
-// src/components/SpeechButton.js
 import React, { useState, useEffect } from 'react';
 import { FaMicrophone, FaMicrophoneSlash, FaVolumeUp } from 'react-icons/fa';
 import PropTypes from 'prop-types';
