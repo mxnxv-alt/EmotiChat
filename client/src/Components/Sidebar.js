@@ -96,12 +96,12 @@ const Sidebar = () => {
     return (
         <div className='w-full h-full flex bg-white'>
             {/* Sidebar Navigation */}
-            <div className='bg-violet-500 w-12 h-full rounded-tr-lg rounded-br-lg py-5 flex flex-col justify-between'>
+            <div className='bg-violet-500 w-12 h-full py-5 flex flex-col justify-between'>
                 <div>
                     <NavLink
                         to="/"
                         className={({ isActive }) =>
-                            `w-12 h-12 flex justify-center items-center cursor-pointer hover:bg-violet-300 rounded ${isActive && "bg-violet-300"}`
+                            `w-12 h-12 flex justify-center items-center cursor-pointer hover:bg-violet-300 ${isActive && "bg-violet-300"}`
                         }
                         title='Chat'
                     >
@@ -110,7 +110,7 @@ const Sidebar = () => {
 
                     <div
                         onClick={() => setOpenSearchUser(true)}
-                        className='w-12 h-12 flex justify-center items-center cursor-pointer hover:bg-violet-300 rounded'
+                        className='w-12 h-12 flex justify-center items-center cursor-pointer hover:bg-violet-300'
                         title='Add Friend'
                     >
                         <FaUserPlus size={25} />
@@ -119,7 +119,7 @@ const Sidebar = () => {
 
                 <div className='flex flex-col items-center'>
                     <button
-                        className='mx-auto cursor-pointer'
+                        className='mx-auto cursor-pointer p-1'
                         title={user?.name}
                         onClick={() => setEditUserOpen(true)}
                     >
@@ -133,10 +133,9 @@ const Sidebar = () => {
                     </button>
                     <button
                         onClick= {handleLogout}
-                        className='w-12 h-12 flex justify-center items-center cursor-pointer hover:bg-violet-300 rounded'
-                        title='LogOut'
-                    >
-                        <span className='-ml-2'>
+                        className='w-12 h-12 flex justify-center items-center cursor-pointer hover:bg-violet-300'
+                        title='LogOut' >
+                        <span>
                             <ImExit size={25} />
                         </span>
                     </button>
@@ -145,18 +144,18 @@ const Sidebar = () => {
 
             {/* Main Content */}
             <div className='w-full '>
-                <div className='h-16 flex items-center'>
+                <div className='h-16 flex items-center bg-neutral-800 text-white'>
                     <h2 className='text-xl font-bold p-4'>Messages</h2>
                 </div>
-                <div className='bg-primary p-[0.60px]'></div>
+                <div className='bg-white p-[0.60px]'></div>
 
-                <div className='h-[calc(100vh-65px)] overflow-x-hidden overflow-y-auto scrollbar'>
+                <div className='h-[calc(100vh-65px)] bg-neutral-800 text-white overflow-x-hidden overflow-y-auto scrollbar'>
                     {allUser.length === 0 && (
                         <div className='mt-[80px]'>
-                            <div className='flex justify-center items-center my-4 text-slate-800'>
+                            <div className='flex justify-center items-center my-4 text-violet-500'>
                                 <GoArrowUpLeft size={50} />
                             </div>
-                            <p className='text-lg text-center text-slate-600'>
+                            <p className='text-lg text-center text-violet-500'>
                                 Explore users to start a conversation
                             </p>
                         </div>
@@ -170,7 +169,7 @@ const Sidebar = () => {
                         return (
                             <div
                                 key={conv?._id}
-                                className='flex items-center gap-2 cursor-pointer hover:bg-gray-100 px-2 py-3 rounded'
+                                className='flex items-center gap-2 cursor-pointer hover:bg-neutral-700 px-2 py-3 rounded'
                                 onClick={() => handleUserClick(userId)}
                             >
                                 <div>
@@ -183,7 +182,7 @@ const Sidebar = () => {
                                 </div>
                                 <div>
                                     <h3 className='text-ellipsis line-clamp-1 font-semibold text-base'>{userName}</h3>
-                                    <div className='text-slate-500 text-xs flex items-center gap-1'>
+                                    <div className='text-slate-400 text-xs flex items-center gap-1'>
                                         <div className='flex items-center gap-1'>
                                             {
                                                 conv?.lastMsg?.imageUrl && (

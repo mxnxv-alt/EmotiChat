@@ -6,6 +6,8 @@ import toast from 'react-hot-toast'
 import Divider from './Divider'
 import { useDispatch } from 'react-redux'
 import {setUser} from '../redux/userSlice'
+import { MdOutlineEdit } from "react-icons/md";
+import { FiEdit } from "react-icons/fi";
 
 const EditUserDetails = ({onClose, user}) => {
 const [data, setdata] = useState({
@@ -104,57 +106,84 @@ const handleSubmit = async (e) => {
 };
 
   return (
-    <div className='fixed top-0 bottom-0 left-0 right-0 bg-gray-700 bg-opacity-50 flex justify-center items-center z-10'>
-     
-        <div className='bg-white p-4 py-6 m-1 rounded w-full max-w-sm'>
-                <h2 className='font-semibold'>Profile details</h2>
-                <p className='text-sm'>Edit user details</p>
-
-                <form className='grid gap-3 mt-3' onSubmit={handleSubmit}>
-                    <div className='flex flex-col gap-1'> 
-                        <label htmlFor='name'>Name: </label>
+        <div className='fixed top-0 bottom-0 left-0 right-0 bg-gray-700 bg-opacity-50 flex justify-center items-center z-10'>
+            <div className='bg-neutral-900 text-white p-4 py-6 m-1 rounded w-full max-w-lg'>
+            <h1 className='font-semibold text-lg'>Profile details</h1>
+            <Divider />
+            <p className='text-sm'>Edit user details</p>
+        
+            <form className='grid gap-3 mt-3' onSubmit={handleSubmit}>
+                <div className='flex gap-6'>
+                {/* Left side with form fields */}
+                <div className='flex flex-col gap-3 w-full'>
+                    <div className='flex flex-col gap-1'>
+                    <label htmlFor='name'>
+                        <i>Name: </i>
+                    </label>
+                    <div className='flex items-center gap-2'>
                         <input
-                            type='text'
-                            name='name'
-                            id='name'
-                            value={data.name}
-                            onChange={handleOnChange}
-                            className='w-full, py-1, px-2 focus:outline-primary border-0.5'
+                        type='text'
+                        name='name'
+                        id='name'
+                        value={data.name}
+                        onChange={handleOnChange}
+                        className='w-full py-1 px-2 bg-neutral-800 focus:outline-primary border border-gray-300 rounded-md'
                         />
+                        <MdOutlineEdit className='cursor-pointer' />
                     </div>
-
+                    </div>
+        
+                    {/* Change photo button */}
                     <div>
-                        <div>Photo:</div>
-                            <div className='my-1 flex items-center  gap-4'>
-                                <Avatar
-                                imageUrl={data?.profile_pic}
-                                name={data?.name}
-                                width={40}
-                                height={40}
-                                />
-                            <label htmlFor='profile_pic'>
-                                <button className='font-semibold h-10 bg-slate-300 hover:active-bg-slate-200 focus:outline-none p-3 pt-2 ' onClick={handleOpenUploadPhoto}>Change Photo</button>
-                                <input
-                                    type='file'
-                                    id='profile_pic'
-                                    className='hidden'
-                                    onChange={handleUploadPhoto}
-                                    ref={uploadPhotoRef}
-                                />
-                            </label>
-                            </div>
+                    <div><i>Photo: </i></div>
+                    <label htmlFor='profile_pic'>
+                        <button
+                        className='font-semibold flex items-center justify-center h-8 bg-slate-400 hover:bg-slate-100 active:bg-slate-400 focus:outline-none px-4 py-1 rounded-md shadow-sm transition-colors duration-200 ease-in-out mt-2 gap-2'
+                        onClick={handleOpenUploadPhoto}>
+                        Change Photo <FiEdit className='text-m' />
+                        </button>
+                        <input
+                        type='file'
+                        id='profile_pic'
+                        className='hidden'
+                        onChange={handleUploadPhoto}
+                        ref={uploadPhotoRef}
+                        />
+                    </label>
                     </div>
-
-                    <Divider/>
-
-                    <div className='flex gap-2 w-fit ml-auto '>
-                        <button onClick={onClose} className='border-primary border text-primary px-4 py-1 rounded hover:bg-primary hover:text-white'>Cancel</button>
-                        <button onClick={onsubmit} className='border-primary bg-primary text-white border px-4 py-1 rounded hover:bg-secondary'>Save</button>
-                    </div>
-                </form>
+                </div>
+        
+                {/* Right side with avatar */}
+                <div className='flex items-center justify-center'>
+                    <Avatar
+                    imageUrl={data?.profile_pic}
+                    name={data?.name}
+                    width={150}
+                    height={150}
+                    />
+                </div>
+                </div>
+        
+                <Divider />
+        
+                {/* Save/Cancel Buttons */}
+                <div className='flex gap-2 w-fit ml-auto'>
+                <button
+                    onClick={onClose}
+                    className='border h-10 bg-gray-300 border-violet-500 text-primary px-5 py-2 rounded-lg transition-all duration-100 ease-in-out hover:bg-violet-800 hover:text-white shadow-md hover:shadow-lg'>
+                    Cancel
+                </button>
+        
+                <button
+                    onClick={onsubmit}
+                    className='border h-10 border-primary bg-violet-800 text-white px-5 py-2 rounded-lg transition-all duration-200 ease-in-out hover:bg-secondary hover:text-white shadow-md hover:shadow-lg'>
+                    Save
+                </button>
+                </div>
+            </form>
+            </div>
         </div>
-    
-    </div>
+        
   )
 }
 

@@ -12,6 +12,7 @@ import Loading from './Loading';
 import backgroundImage from '../Assets/background.jpg';
 import moment from 'moment';
 import SpeechButton from './SpeechButton'; // Import SpeechButton
+import { BsEmojiLaughing } from "react-icons/bs";//<BsEmojiLaughing />
 
 const MessagePage = () => {
     const params = useParams();
@@ -191,7 +192,7 @@ const MessagePage = () => {
 
     return (
         <div style={{ backgroundImage: `url(${backgroundImage})` }} className='bg-no-repeat bg-cover h-screen'>
-            <header className='sticky top-0 h-16 bg-white flex justify-between items-center px-5'>
+            <header className='sticky top-0 h-16 bg-neutral-800 text-white flex justify-between items-center px-5'>
                 <div className='flex items-center gap-4'>
                     <Link to="/" className='lg:hidden'>
                         <IoIosArrowBack />
@@ -207,14 +208,14 @@ const MessagePage = () => {
                     </div>
                     <div>
                         <h3 className='font-semibold text-lg my-0 text-ellipsis line-clamp-1'>{dataUser?.name}</h3>
-                        <p className='-my-2 text-sm'>
-                            {dataUser.online ? <span className='text-primary'>online</span> : <span className='text-slate-400'>offline</span>}
+                        <p className='-my-2 text-sm py-1'>
+                            {dataUser.online ? <span className='text-teal-500'>online</span> : <span className='text-slate-400'>offline</span>}
                         </p>
                     </div>
                 </div>
 
                 <div>
-                    <button className='cursor-pointer hover:text-primary'>
+                    <button className='cursor-pointer hover:text-teal-500'>
                         <BsThreeDotsVertical size={20} />
                     </button>
                 </div>
@@ -225,7 +226,7 @@ const MessagePage = () => {
                     {allMessage.map((msg) => (
                         <div
                             key={msg._id}
-                            className={` p-1 py-2 rounded w-fit max-w-[280px] md:max-w-sm lg:max-w-md ${user._id === msg.msgByUserId ? "ml-auto bg-teal-200" : "bg-white"}`}
+                            className={` p-1 py-2 rounded w-fit max-w-[280px] md:max-w-sm lg:max-w-md ${user._id === msg.msgByUserId ? "ml-auto bg-teal-200" : "text-white shadow-2xl bg-neutral-800"}`}
                         >
                             <div className='w-full'>
                                 {msg?.imageUrl && (
@@ -245,21 +246,21 @@ const MessagePage = () => {
                                 )}
                             </div>
                             <p className='px-2'>{msg.text}</p>
-                            <p className='text-xs ml-auto w-fit'>{moment(msg.createdAt).format('hh:mm A')}</p>
+                            <p className='text-xs ml-auto w-fit text-neutral-400 px-1'>{moment(msg.createdAt).format('hh:mm A')}</p>
                         </div>
                     ))}
                 </div>
 
                 {message.imageUrl && (
                     <div className='w-full h-full sticky bottom-0 bg-slate-700 bg-opacity-30 flex justify-center items-center rounded overflow-hidden'>
-                        <div className='w-fit p-2 absolute top-0 right-0 cursor-pointer hover:text-primary' onClick={handleClearUploadImage}>
+                        <div className='w-fit p-2 absolute top-0 right-0 cursor-pointer text-white hover:text-teal-500' onClick={handleClearUploadImage}>
                             <IoClose size={40} />
                         </div>
-                        <div className='bg-white p-3'>
+                        <div className='bg-neutral-800 p-3'>
                             <img
                                 src={message.imageUrl}
                                 alt='uploadImage'
-                                className='aspect-square w-full h-full max-w-sm m-2 object-scale-down'
+                                className='w-full h-full max-w-sm m-2 object-scale-down'//aspect-square
                             />
                         </div>
                     </div>
@@ -267,13 +268,13 @@ const MessagePage = () => {
 
                 {message.videoUrl && (
                     <div className='w-full h-full sticky bottom-0 bg-slate-700 bg-opacity-30 flex justify-center items-center rounded overflow-hidden'>
-                        <div className='w-fit p-2 absolute top-0 right-0 cursor-pointer hover:text-primary' onClick={handleClearUploadVideo}>
+                        <div className='w-fit p-2 absolute top-0 right-0 cursor-pointer text-white hover:text-teal-500' onClick={handleClearUploadVideo}>
                             <IoClose size={40} />
                         </div>
-                        <div className='bg-white p-3'>
+                        <div className='bg-neutral-800 p-3'>
                             <video
                                 src={message.videoUrl}
-                                className='aspect-square w-full h-full max-w-sm m-2 object-scale-down'
+                                className='w-full h-full max-w-sm m-2 object-scale-down'//aspect-square
                                 controls
                                 muted
                                 autoPlay
@@ -289,30 +290,29 @@ const MessagePage = () => {
                 )}
             </section>
 
-            <section className='h-16 bg-white flex items-center px-2'>
+            <section className='h-16 bg-neutral-800 text-white flex items-center px-2'>
                 {/* Flex container for message input controls */}
                 <div className='flex items-center gap-2 w-full'>
                     {/* Send Image/Video Button */}
                     <div className='relative'>
                         <button
                             onClick={handleOpenImageVideoUpload}
-                            className='flex justify-center items-center w-11 h-11 rounded-full hover:bg-primary hover:text-white'
-                            title="Send Image or Video"
-                        >
+                            className='flex justify-center items-center w-11 h-11 rounded-full hover:bg-violet-500 hover:text-white transition-colors duration-200 ease-in-out'
+                            title="Send Image or Video"  >
                             <FaPlus size={20} />
                         </button>
 
                         {openImageVideoUpload && (
-                            <div className='bg-white shadow rounded absolute bottom-14 left-0 w-36 p-2'>
+                            <div className='bg-neutral-800 text-white shadow rounded absolute bottom-14 left-0 w-36 p-2 my-2'>
                                 <form>
-                                    <label htmlFor='uploadImage' className='flex items-center p-2 px-3 gap-2 hover:bg-slate-200 cursor-pointer'>
-                                        <div className='text-primary'>
+                                    <label htmlFor='uploadImage' className='flex items-center p-2 px-3 gap-2 hover:bg-slate-700 cursor-pointer'>
+                                        <div className='text-teal-300'>
                                             <FaImage size={18} />
                                         </div>
                                         <p>Image</p>
                                     </label>
-                                    <label htmlFor='uploadVideo' className='flex items-center p-2 px-3 gap-2 hover:bg-slate-200 cursor-pointer'>
-                                        <div className='text-primary'>
+                                    <label htmlFor='uploadVideo' className='flex items-center p-2 px-3 gap-2 hover:bg-slate-700 cursor-pointer'>
+                                        <div className='text-teal-300'>
                                             <FaVideo size={18} />
                                         </div>
                                         <p>Video</p>
@@ -349,12 +349,12 @@ const MessagePage = () => {
                             type="text"
                             name="text" // Added name attribute for dynamic handling
                             placeholder="Enter Your Message..."
-                            className="py-2 px-4 outline-none flex-grow h-full rounded-lg bg-slate-100"
+                            className="py-2 px-4 outline-none flex-grow h-full rounded-lg bg-neutral-800"
                             value={message.text}
                             onChange={handleOnChange}
                         />
                         <button
-                            className="bg-primary text-white hover:bg-secondary w-12 h-12 rounded-full flex items-center justify-center transition duration-300 ease-in-out"
+                            className="bg-violet-700 text-white hover:bg-secondary w-12 h-12 rounded-full flex items-center justify-center transition duration-300 ease-in-out"
                             type="submit"
                             title="Send Message"
                         >
