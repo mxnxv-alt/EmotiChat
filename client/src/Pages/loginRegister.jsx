@@ -5,7 +5,7 @@ import { IoIosMail } from "react-icons/io";
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useNavigate, useLocation } from 'react-router-dom';
-import logo from '../Assets/logo.png';
+import logo from '../Assets/logo4.png';
 import { useDispatch } from 'react-redux';
 import { setToken, setName } from '../redux/userSlice';
 

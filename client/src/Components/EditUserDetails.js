@@ -106,7 +106,7 @@ const handleSubmit = async (e) => {
 };
 
   return (
-        <div className='fixed top-0 bottom-0 left-0 right-0 bg-gray-700 bg-opacity-50 flex justify-center items-center z-10'>
+        <div className='fixed top-0 bottom-0 left-0 right-0 backdrop-blur-sm flex justify-center items-center z-10'>
             <div className='bg-neutral-900 text-white p-4 py-6 m-1 rounded w-full max-w-lg'>
             <h1 className='font-semibold text-lg'>Profile details</h1>
             <Divider />

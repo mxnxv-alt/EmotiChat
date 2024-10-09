@@ -14,11 +14,14 @@ body, html {
 }
 
 .form-logo {
-    display: block;
-    margin: 0 auto 1.5em auto; /* Centers the logo and adds space below it */
-    width: 80px; /* Adjust the width of the logo as needed */
-    height: auto; /* Maintains aspect ratio */
+  display: block;
+  margin: 0 auto 1.5em; /* Centers the logo horizontally and adds space below */
+  width: 200px; /* Adjust the width of the logo */
+  max-width: 100%; /* Prevents the image from exceeding the container's width */
+  height: auto; /* Maintains the aspect ratio of the image */
+  object-fit: contain; /* Ensures the image fits inside its container */
 }
+
 
 
 .loading-spinner {

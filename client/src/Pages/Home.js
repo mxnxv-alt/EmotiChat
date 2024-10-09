@@ -87,7 +87,7 @@ const Home = () => {
         <Outlet />
       </section>
 
-      <div className={`justify-center login-page-background bg-neutral-600 items-center flex-col gap-2 hidden ${!basePath ? "hidden" : "lg:flex" }`}>
+      <div className={`justify-center login-page-background backdrop-blur-sm items-center flex-col gap-2 hidden ${!basePath ? "hidden" : "lg:flex" }`}>
         <div>
           <img src={logo} width={250} alt='logo' className="opacity-88" />
         </div>

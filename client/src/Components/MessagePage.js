@@ -218,7 +218,11 @@ const MessagePage = () => {
             text: translatedText
         }));
     };
-
+                /*<div>
+                    <button className='cursor-pointer hover:text-teal-500'>
+                        <BsThreeDotsVertical size={20} />
+                    </button>
+                </div> */
     return (
         <div style={{ backgroundImage: `url(${backgroundImage})` }} className='bg-no-repeat bg-cover h-screen'>
             <header className='sticky top-0 h-16 bg-neutral-800 text-white flex justify-between items-center px-5'>
@@ -243,14 +247,10 @@ const MessagePage = () => {
                     </div>
                 </div>
 
-                <div>
-                    <button className='cursor-pointer hover:text-teal-500'>
-                        <BsThreeDotsVertical size={20} />
-                    </button>
-                </div>
+                
             </header>
 
-            <section className='h-[calc(100vh-128px)] overflow-x-hidden overflow-y-scroll scrollbar relative bg-slate-200 bg-opacity-20'>
+            <section className='h-[calc(100vh-128px)] overflow-x-hidden overflow-y-scroll IoIosArrowBack relative bg-teal-100 bg-opacity-10'>
                 <div className='flex flex-col gap-2 py-2 mx-2' ref={currentMessage}>
                     {allMessage.map((msg) => (
                         <div
@@ -281,7 +281,7 @@ const MessagePage = () => {
                 </div>
 
                 {message.imageUrl && (
-                    <div className='w-full h-full sticky bottom-0 bg-slate-700 bg-opacity-30 flex justify-center items-center rounded overflow-hidden'>
+                    <div className='w-full h-full sticky bottom-0 backdrop-blur-sm flex justify-center items-center rounded overflow-hidden'>
                         <div className='w-fit p-2 absolute top-0 right-0 cursor-pointer text-white hover:text-teal-500' onClick={handleClearUploadImage}>
                             <IoClose size={40} />
                         </div>
@@ -296,7 +296,7 @@ const MessagePage = () => {
                 )}
 
                 {message.videoUrl && (
-                    <div className='w-full h-full sticky bottom-0 bg-slate-700 bg-opacity-30 flex justify-center items-center rounded overflow-hidden'>
+                    <div className='w-full h-full sticky bottom-0 backdrop-blur-sm flex justify-center items-center rounded overflow-hidden'>
                         <div className='w-fit p-2 absolute top-0 right-0 cursor-pointer text-white hover:text-teal-500' onClick={handleClearUploadVideo}>
                             <IoClose size={40} />
                         </div>
@@ -332,7 +332,7 @@ const MessagePage = () => {
                         </button>
 
                         {openImageVideoUpload && (
-                            <div className='bg-neutral-800 text-white shadow rounded absolute bottom-14 left-0 w-36 p-2 my-2'>
+                            <div className='bg-neutral-900 text-white shadow rounded absolute bottom-14 left-0 w-36 p-2 my-2'>
                                 <form>
                                     <label htmlFor='uploadImage' className='flex items-center p-2 px-3 gap-2 hover:bg-slate-700 cursor-pointer'>
                                         <div className='text-teal-300'>
