@@ -250,7 +250,7 @@ const MessagePage = () => {
                 
             </header>
 
-            <section className='h-[calc(100vh-128px)] overflow-x-hidden overflow-y-scroll IoIosArrowBack relative bg-teal-100 bg-opacity-10'>
+            <section className='h-[calc(100vh-128px)] overflow-x-hidden scrollbar overflow-y-scroll IoIosArrowBack relative bg-teal-100 bg-opacity-10'>
                 <div className='flex flex-col gap-2 py-2 mx-2' ref={currentMessage}>
                     {allMessage.map((msg) => (
                         <div

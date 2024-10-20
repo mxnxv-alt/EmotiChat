@@ -206,9 +206,9 @@ const Sidebar = () => {
                                 </div>
                                 {
                                     Boolean(conv?.unseenMsg) && (
-                                        <p className='text-xs w-6 h-6 flex justify-center items-center ml-auto bg-violet-500 p-1 text-white font-semibold rounded-full'>{conv?.unseenMsg}</p>
-
+                                        <div className='w-1 h-10 ml-auto bg-violet-500 rounded-full'></div>
                                     )
+                                    
                                 }
 
                             </div>
